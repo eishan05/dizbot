@@ -9,7 +9,7 @@ setup(
     author_email="eishanlawrence5@gmail.com",
     license=dizbot.__license__,
     packages=["dizbot"],
-    entry_points={"console_scripts": ["dizbot=dizbot.__main__:main"]},
+    entry_points={"console_scripts": ["dizbot=dizbot.dizbot:cli"]},
     install_requires=[
       "Click",
     ],

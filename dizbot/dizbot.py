@@ -1,6 +1,6 @@
 import click
 
 @click.command()
-def main():
+def cli():
   click.echo("Hello Botters!")
 
