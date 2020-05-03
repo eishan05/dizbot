@@ -6,3 +6,4 @@ python:
   - "3.7"
   - "3.8"
 cache: pip
+script: nosetests
