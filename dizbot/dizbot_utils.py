@@ -24,7 +24,7 @@ class DizbotUtils:
     @staticmethod
     def input_command_from_user(dizbot_config):
         command_name = click.prompt("What should be the command name")
-        while command_name in dizbot_config.commands.keys():
+        while command_name in dizbot_config.commands:
             if click.confirm("Command already present in bot configurations with response: " + dizbot_config.commands[command_name] + ", overwrite it?"):
                 break
             else:
@@ -39,5 +39,6 @@ class DizbotUtils:
             click.echo(str(dizbot_config))
             if (click.confirm("Do you want to overwrite the config?")):
                 dizbot_config.clear()
+                click.echo("Overwriting previous bot config")
             else:
-                click.echo("Creating new bot configurations")
+                click.echo("Keeping previous bot config")

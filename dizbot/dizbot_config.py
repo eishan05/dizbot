@@ -38,7 +38,7 @@ class DizbotConfig:
                     success = False
                 f.close()
         except FileNotFoundError:
-            return False
+            success = False
         return success
 
     def clear(self):
