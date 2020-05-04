@@ -24,7 +24,10 @@ def add_event_handlers():
   click.echo("Adding event handlers!")
 
 def add_client_token():
-  click.echo("Adding client token")
+  token = click.prompt("Dicord client token: ")
+  with click.open_file("client_token.txt", mode="w", lazy=True) as f:
+    f.write(token)
+  click.secho("Added discord token", fg="green")
 
 def give_client_token_information():
   click.echo("You can add/change your bot's client token manually to the file client_token.txt")
