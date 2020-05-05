@@ -2,6 +2,8 @@ import json
 import click
 
 CONFIG_FILE_NAME = "dizbot_config.json"
+CLIENT_TOKEN_FILE_NAME = "client_token.txt"
+GITIGNORE_FILE_NAME = ".gitignore"
 
 class DizbotConfig:
     """ Configurations of the discord bot to build """
@@ -17,6 +19,17 @@ class DizbotConfig:
         with click.open_file(CONFIG_FILE_NAME, mode="w", lazy=True) as f:
             json.dump(self.__dict__, f)
             f.close()
+        with click.open_file(CLIENT_TOKEN_FILE_NAME, mode="w", lazy=True) as f:
+            f.write(self.client_token)
+            f.close()
+        with click.open_file(GITIGNORE_FILE_NAME, mode="a+", lazy=True) as f:
+            f.seek(0)
+            file_data = f.read()
+            if CONFIG_FILE_NAME not in file_data:
+                f.write("# dizbot files\n")
+                f.write(CONFIG_FILE_NAME + "\n")
+            if CLIENT_TOKEN_FILE_NAME not in file_data:
+                f.write(CLIENT_TOKEN_FILE_NAME + "\n")
     
     def read_config_from_file(self):
         """ Returns true if successfully read """
