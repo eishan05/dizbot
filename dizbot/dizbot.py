@@ -9,7 +9,7 @@ pass_dizbot_config = click.make_pass_decorator(DizbotConfig, ensure=True)
 @pass_dizbot_config
 def cli(dizbot_config, ctx):
   if ctx.invoked_subcommand is None:
-    click.echo("You are using dizbot, a command line tool to help you seemlessly create discord bots in python!")
+    DizbotUtils.output("You are using dizbot, a command line tool to help you seemlessly create discord bots in python!")
 
 @cli.command()
 @pass_dizbot_config
@@ -24,7 +24,7 @@ def create(dizbot_config):
   DizbotUtils.give_client_token_information()
   dizbot_config.save_config_to_file()
   click.secho("Bot config created successfully!", fg="green")
-  click.echo(str(dizbot_config))
+  DizbotUtils.output(str(dizbot_config))
 
 def add_commands(dizbot_config):
   DizbotUtils.input_command_prefix_from_user(dizbot_config)
@@ -33,7 +33,7 @@ def add_commands(dizbot_config):
     DizbotUtils.input_command_from_user(dizbot_config)
 
 def add_event_handlers():
-  click.echo("Adding event handlers!")
+  DizbotUtils.output("Adding event handlers!")
 
 def add_client_token(dizbot_config):
   token = click.prompt("Dicord client token")

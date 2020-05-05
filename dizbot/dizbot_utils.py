@@ -35,10 +35,14 @@ class DizbotUtils:
     @staticmethod
     def handle_persistent_config(dizbot_config):
           if dizbot_config.read_config_from_file():
-            click.echo("Already found bot config")
-            click.echo(str(dizbot_config))
+            DizbotUtils.output("Already found bot config")
+            DizbotUtils.output(str(dizbot_config))
             if (click.confirm("Do you want to overwrite the config?")):
                 dizbot_config.clear()
-                click.echo("Overwriting previous bot config")
+                DizbotUtils.output("Overwriting previous bot config")
             else:
-                click.echo("Keeping previous bot config")
+                DizbotUtils.output("Keeping previous bot config")
+    
+    @staticmethod
+    def output(str):
+        click.echo("\n" + str + "\n")
