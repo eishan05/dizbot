@@ -26,7 +26,7 @@ class DizbotConfig:
             f.seek(0)
             file_data = f.read()
             if CONFIG_FILE_NAME not in file_data:
-                f.write("# dizbot files\n")
+                f.write("\n# dizbot files\n\n")
                 f.write(CONFIG_FILE_NAME + "\n")
             if CLIENT_TOKEN_FILE_NAME not in file_data:
                 f.write(CLIENT_TOKEN_FILE_NAME + "\n")
