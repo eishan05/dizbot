@@ -1,4 +1,6 @@
 import click
+import keyword
+import builtins
 
 class DizbotUtils:
 
@@ -14,21 +16,21 @@ class DizbotUtils:
         prefix = ""
         if dizbot_config.command_prefix != dizbot_config.DEFAULT_NOT_SET:
             if click.confirm("You have already set the prefix to " + dizbot_config.command_prefix + " do you want to change it"):
-                prefix = click.prompt("What should be your bot's command prefix")
+                prefix = DizbotUtils.prompt_input_from_user()
             else:
                 prefix = dizbot_config.command_prefix
         else:
-            prefix = click.prompt("What should be your bot's command prefix")
+            prefix = DizbotUtils.prompt_input_from_user()
         dizbot_config.command_prefix = prefix
 
     @staticmethod
     def input_command_from_user(dizbot_config):
-        command_name = click.prompt("What should be the command name")
+        command_name = DizbotUtils.prompt_input_from_user()
         while command_name in dizbot_config.commands:
             if click.confirm("Command already present in bot configurations with response: " + dizbot_config.commands[command_name] + ", overwrite it?"):
                 break
             else:
-                command_name = click.prompt("What should be the command name")
+                command_name = DizbotUtils.prompt_input_from_user()
         command_response = click.prompt("What should be the bot's response to " + dizbot_config.command_prefix + command_name)
         dizbot_config.commands[command_name] = command_response
     
@@ -42,6 +44,23 @@ class DizbotUtils:
                 DizbotUtils.output("Overwriting previous bot config")
             else:
                 DizbotUtils.output("Keeping previous bot config")
+    
+    @staticmethod
+    def prompt_input_from_user():
+        command_input = click.prompt("What should be the command name")
+        while not DizbotUtils.is_command_input_clean(command_input):
+            command_input = click.prompt("Please enter the command name again")
+        return command_input
+    
+    @staticmethod
+    def is_command_input_clean(input):
+        if " " in input:
+            click.secho("No whitespace allowed in commands", fg="red")
+            return False
+        elif keyword.iskeyword(input) or input in dir(builtins):
+            click.secho("Commands cannot be reserved keywords in python", fg="red")
+            return False
+        return True
     
     @staticmethod
     def output(str):
