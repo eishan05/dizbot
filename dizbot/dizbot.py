@@ -28,6 +28,7 @@ def create(dizbot_config):
   DizbotUtils.output(str(dizbot_config))
   generator = DizbotGenerator(dizbot_config)
   generator.output_bot_code()
+  click.secho("Bot code generated successfully!", fg="green")
 
 def add_commands(dizbot_config):
   DizbotUtils.input_command_prefix_from_user(dizbot_config)
