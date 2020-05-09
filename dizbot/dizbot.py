@@ -1,6 +1,7 @@
 import click
 from .dizbot_config import DizbotConfig
 from .dizbot_utils import DizbotUtils
+from .dizbot_generator import DizbotGenerator
 
 pass_dizbot_config = click.make_pass_decorator(DizbotConfig, ensure=True)
 
@@ -25,6 +26,8 @@ def create(dizbot_config):
   dizbot_config.save_config_to_file()
   click.secho("Bot config created successfully!", fg="green")
   DizbotUtils.output(str(dizbot_config))
+  generator = DizbotGenerator(dizbot_config)
+  generator.output_bot_code()
 
 def add_commands(dizbot_config):
   DizbotUtils.input_command_prefix_from_user(dizbot_config)
@@ -36,6 +39,6 @@ def add_event_handlers():
   DizbotUtils.output("Adding event handlers!")
 
 def add_client_token(dizbot_config):
-  token = click.prompt("Dicord client token")
+  token = click.prompt("Dicord client token", type=str)
   dizbot_config.client_token = token
   click.secho("Added discord token", fg="green")

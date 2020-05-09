@@ -12,5 +12,6 @@ setup(
     entry_points={"console_scripts": ["dizbot=dizbot.dizbot:cli"]},
     install_requires=[
       "Click",
+      "discord.py"
     ],
 )
