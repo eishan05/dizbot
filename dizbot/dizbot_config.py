@@ -49,6 +49,10 @@ class DizbotConfig:
                     self.client_token = json_object["client_token"]
                 else:
                     success = False
+                if type(json_object["on_member_join_message"]) is str:
+                    self.on_member_join_message = json_object["on_member_join_message"]
+                else:
+                    success = False
                 f.close()
         except FileNotFoundError:
             success = False
@@ -63,4 +67,5 @@ class DizbotConfig:
         bot_commands = "Commands: " + str(self.commands)
         bot_prefix = "Prefix: " + self.command_prefix
         bot_client_token = "Client token: " + self.client_token
-        return bot_commands + "\n" + bot_prefix + "\n" + bot_client_token
+        bot_on_member_join = "On member join message: " + self.on_member_join_message
+        return bot_commands + "\n" + bot_prefix + "\n" + bot_client_token + "\n" + bot_on_member_join

@@ -1,5 +1,5 @@
 import click
-from .dizbot_config import DizbotConfig
+from .dizbot_config import DizbotConfig, DEFAULT_NOT_SET
 from .dizbot_utils import DizbotUtils
 from .dizbot_generator import DizbotGenerator
 
@@ -38,7 +38,15 @@ def add_commands(dizbot_config):
 
 def add_event_handlers(dizbot_config):
   if click.confirm("Do you want to send a Direct Message to a member when he joins your server?"):
-    msg = click.prompt("What message would you like the bot to send", type=str)
+    msg = ""
+    if dizbot_config.on_member_join_message != DEFAULT_NOT_SET:
+      click.echo("On member join event is already being handled by sending the following message: " + dizbot_config.on_member_join_message)
+      if click.confirm("Do you want to change it?"):
+        msg = click.prompt("What message would you like the bot to send", type=str)
+      else:
+        msg = dizbot_config.on_member_join_message
+    else:
+      msg = click.prompt("What message would you like the bot to send", type=str)
     dizbot_config.on_member_join_message = msg
 
 def add_client_token(dizbot_config):
