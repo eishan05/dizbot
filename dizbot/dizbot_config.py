@@ -14,6 +14,7 @@ class DizbotConfig:
         self.commands = dict()
         self.command_prefix = self.DEFAULT_NOT_SET
         self.client_token = self.DEFAULT_NOT_SET
+        self.on_member_join_message = self.DEFAULT_NOT_SET
     
     def save_config_to_file(self):
         with click.open_file(CONFIG_FILE_NAME, mode="w", lazy=True) as f:

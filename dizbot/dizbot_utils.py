@@ -31,7 +31,7 @@ class DizbotUtils:
                 break
             else:
                 command_name = DizbotUtils.prompt_input_from_user()
-        command_response = click.prompt("What should be the bot's response to " + dizbot_config.command_prefix + command_name)
+        command_response = click.prompt("What should be the bot's response to " + dizbot_config.command_prefix + command_name, type=str)
         dizbot_config.commands[command_name] = command_response
     
     @staticmethod
@@ -47,9 +47,10 @@ class DizbotUtils:
     
     @staticmethod
     def prompt_input_from_user():
-        command_input = click.prompt("What should be the command name")
+        # TODO: specify prompt paramerter (not just command name, could be prfix too)
+        command_input = click.prompt("What should be the command name", type=str)
         while not DizbotUtils.is_command_input_clean(command_input):
-            command_input = click.prompt("Please enter the command name again")
+            command_input = click.prompt("Please enter the command name again", type=str)
         return command_input
     
     @staticmethod

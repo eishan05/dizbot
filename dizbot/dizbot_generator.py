@@ -4,6 +4,7 @@ from .dizbot_config import CLIENT_TOKEN_FILE_NAME
 INDENT = "\t"
 BOT_VARIABLE = "bot"
 BOT_CODE_FILE = "bot.py"
+MEMBER_VARIABLE = "member"
 
 class DizbotGenerator:
 
@@ -21,12 +22,8 @@ class DizbotGenerator:
         code = self.generate_import_code()
         code += self.generate_bot_declaration_code()
         code += self.generate_commands()
+        code += self.generate_event_handler_code()
         code += self.generate_run_bot_code()
-        return code
-
-    def generate_run_bot_code(self):
-        code = "f = open('" + CLIENT_TOKEN_FILE_NAME + "', 'r')\n"
-        code += "bot.run(f.read())\n"
         return code
     
     def generate_import_code(self):
@@ -47,4 +44,18 @@ class DizbotGenerator:
         code = "@" + BOT_VARIABLE + ".command()\n"
         code += "async def " + command_name + "(ctx, *args):\n"
         code += INDENT + "await ctx.send('" + command_response + "')\n\n"
+        return code
+    
+    def generate_event_handler_code(self):
+        code = "@" + BOT_VARIABLE + ".event\n"
+        code += "async def on_member_join(" + MEMBER_VARIABLE + "):\n"
+        # TODO: do not output this code when dizbot_config.on_member_join_message is not set
+        code += INDENT + "channel = await " + MEMBER_VARIABLE + ".create_dm()\n"
+        code += INDENT + "await channel.send('" + self.dizbot_config.on_member_join_message + "')\n\n"
+        return code
+
+    def generate_run_bot_code(self):
+        code = "f = open('" + CLIENT_TOKEN_FILE_NAME + "', 'r')\n"
+        code += "print('Running the bot...')\n"
+        code += "bot.run(f.read())\n"
         return code

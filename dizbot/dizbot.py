@@ -19,7 +19,7 @@ def create(dizbot_config):
   if click.confirm("Do you want to add commands to the bot?"):
     add_commands(dizbot_config)
   if click.confirm("Do you want to add event handlers to the bot?"):
-    add_event_handlers()
+    add_event_handlers(dizbot_config)
   if click.confirm("Do you want dizbot to add your bot's client token to your bot for you?"):
     add_client_token(dizbot_config)
   DizbotUtils.give_client_token_information()
@@ -36,8 +36,10 @@ def add_commands(dizbot_config):
   while click.confirm("Want to add more commands?"):
     DizbotUtils.input_command_from_user(dizbot_config)
 
-def add_event_handlers():
-  DizbotUtils.output("Adding event handlers!")
+def add_event_handlers(dizbot_config):
+  if click.confirm("Do you want to send a Direct Message to a member when he joins your server?"):
+    msg = click.prompt("What message would you like the bot to send", type=str)
+    dizbot_config.on_member_join_message = msg
 
 def add_client_token(dizbot_config):
   token = click.prompt("Dicord client token", type=str)
