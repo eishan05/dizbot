@@ -1,10 +1,12 @@
 import click
-from .dizbot_config import CLIENT_TOKEN_FILE_NAME
+from .dizbot_config import CLIENT_TOKEN_FILE_NAME, DEFAULT_NOT_SET
 
 INDENT = "\t"
 BOT_VARIABLE = "bot"
 BOT_CODE_FILE = "bot.py"
 MEMBER_VARIABLE = "member"
+EVENT_HANDLING_TODO_COMMENT = "#TODO: Add event handling logic"
+PASS = "pass"
 
 class DizbotGenerator:
 
@@ -49,9 +51,12 @@ class DizbotGenerator:
     def generate_event_handler_code(self):
         code = "@" + BOT_VARIABLE + ".event\n"
         code += "async def on_member_join(" + MEMBER_VARIABLE + "):\n"
-        # TODO: do not output this code when dizbot_config.on_member_join_message is not set
-        code += INDENT + "channel = await " + MEMBER_VARIABLE + ".create_dm()\n"
-        code += INDENT + "await channel.send('" + self.dizbot_config.on_member_join_message + "')\n\n"
+        if self.dizbot_config.on_member_join_message != DEFAULT_NOT_SET:
+            code += INDENT + "channel = await " + MEMBER_VARIABLE + ".create_dm()\n"
+            code += INDENT + "await channel.send('" + self.dizbot_config.on_member_join_message + "')\n\n"
+        else:
+            code += INDENT + EVENT_HANDLING_TODO_COMMENT + "\n"
+            code += INDENT + PASS + "\n\n"
         return code
 
     def generate_run_bot_code(self):

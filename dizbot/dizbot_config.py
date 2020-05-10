@@ -4,17 +4,16 @@ import click
 CONFIG_FILE_NAME = "dizbot_config.json"
 CLIENT_TOKEN_FILE_NAME = "client_token.txt"
 GITIGNORE_FILE_NAME = ".gitignore"
+DEFAULT_NOT_SET = "not-set"
 
 class DizbotConfig:
     """ Configurations of the discord bot to build """
 
-    DEFAULT_NOT_SET = "not-set"
-
     def __init__(self):
         self.commands = dict()
-        self.command_prefix = self.DEFAULT_NOT_SET
-        self.client_token = self.DEFAULT_NOT_SET
-        self.on_member_join_message = self.DEFAULT_NOT_SET
+        self.command_prefix = DEFAULT_NOT_SET
+        self.client_token = DEFAULT_NOT_SET
+        self.on_member_join_message = DEFAULT_NOT_SET
     
     def save_config_to_file(self):
         with click.open_file(CONFIG_FILE_NAME, mode="w", lazy=True) as f:
@@ -57,8 +56,8 @@ class DizbotConfig:
 
     def clear(self):
         self.commands = dict()
-        self.command_prefix = self.DEFAULT_NOT_SET
-        self.client_token = self.DEFAULT_NOT_SET
+        self.command_prefix = DEFAULT_NOT_SET
+        self.client_token = DEFAULT_NOT_SET
     
     def __str__(self):
         bot_commands = "Commands: " + str(self.commands)

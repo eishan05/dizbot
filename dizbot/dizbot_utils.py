@@ -1,6 +1,7 @@
 import click
 import keyword
 import builtins
+from .dizbot_config import DEFAULT_NOT_SET
 
 COMMAND_PROMPT_NAME = "command name"
 PREFIX_PROMPT_NAME = "prefix"
@@ -17,7 +18,7 @@ class DizbotUtils:
     @staticmethod
     def input_command_prefix_from_user(dizbot_config):
         prefix = ""
-        if dizbot_config.command_prefix != dizbot_config.DEFAULT_NOT_SET:
+        if dizbot_config.command_prefix != DEFAULT_NOT_SET:
             if click.confirm("You have already set the prefix to " + dizbot_config.command_prefix + " do you want to change it"):
                 prefix = DizbotUtils.prompt_input_from_user(PREFIX_PROMPT_NAME)
             else:
