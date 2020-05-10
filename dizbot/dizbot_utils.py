@@ -2,6 +2,9 @@ import click
 import keyword
 import builtins
 
+COMMAND_PROMPT_NAME = "command name"
+PREFIX_PROMPT_NAME = "prefix"
+
 class DizbotUtils:
 
     @staticmethod
@@ -16,21 +19,21 @@ class DizbotUtils:
         prefix = ""
         if dizbot_config.command_prefix != dizbot_config.DEFAULT_NOT_SET:
             if click.confirm("You have already set the prefix to " + dizbot_config.command_prefix + " do you want to change it"):
-                prefix = DizbotUtils.prompt_input_from_user()
+                prefix = DizbotUtils.prompt_input_from_user(PREFIX_PROMPT_NAME)
             else:
                 prefix = dizbot_config.command_prefix
         else:
-            prefix = DizbotUtils.prompt_input_from_user()
+            prefix = DizbotUtils.prompt_input_from_user(PREFIX_PROMPT_NAME)
         dizbot_config.command_prefix = prefix
 
     @staticmethod
     def input_command_from_user(dizbot_config):
-        command_name = DizbotUtils.prompt_input_from_user()
+        command_name = DizbotUtils.prompt_input_from_user(COMMAND_PROMPT_NAME)
         while command_name in dizbot_config.commands:
             if click.confirm("Command already present in bot configurations with response: " + dizbot_config.commands[command_name] + ", overwrite it?"):
                 break
             else:
-                command_name = DizbotUtils.prompt_input_from_user()
+                command_name = DizbotUtils.prompt_input_from_user(COMMAND_PROMPT_NAME)
         command_response = click.prompt("What should be the bot's response to " + dizbot_config.command_prefix + command_name, type=str)
         dizbot_config.commands[command_name] = command_response
     
@@ -46,20 +49,19 @@ class DizbotUtils:
                 DizbotUtils.output("Keeping previous bot config")
     
     @staticmethod
-    def prompt_input_from_user():
-        # TODO: specify prompt paramerter (not just command name, could be prfix too)
-        command_input = click.prompt("What should be the command name", type=str)
-        while not DizbotUtils.is_command_input_clean(command_input):
-            command_input = click.prompt("Please enter the command name again", type=str)
+    def prompt_input_from_user(prompt_name):
+        command_input = click.prompt("Please enter " + prompt_name, type=str)
+        while not DizbotUtils.is_command_input_clean(command_input, prompt_name):
+            command_input = click.prompt("Please enter " + prompt_name + " again", type=str)
         return command_input
     
     @staticmethod
-    def is_command_input_clean(input):
+    def is_command_input_clean(input, prompt_name):
         if " " in input:
-            click.secho("No whitespace allowed in commands", fg="red")
+            click.secho("No whitespace allowed in " + prompt_name, fg="red")
             return False
         elif keyword.iskeyword(input) or input in dir(builtins):
-            click.secho("Commands cannot be reserved keywords in python", fg="red")
+            click.secho(prompt_name + " cannot be reserved keywords in python", fg="red")
             return False
         return True
     
