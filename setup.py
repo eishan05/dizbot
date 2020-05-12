@@ -18,6 +18,7 @@ setup(
     version=dizbot.__version__,
     description=dizbot.__doc__.strip(),
     long_description=get_readme(),
+    long_description_content_type='text/markdown',
     url="https://github.com/eishan05/dizbot",
     author=dizbot.__author__,
     author_email="eishanlawrence5@gmail.com",
