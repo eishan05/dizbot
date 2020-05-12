@@ -12,7 +12,7 @@ dizbot_run_choices = ["prefix", "command", "event", "token", "create", "exit"]
 @pass_dizbot_config
 def cli(dizbot_config, ctx):
   if ctx.invoked_subcommand is None:
-    DizbotUtils.output("dizbot is a command line tool to help you seemlessly create discord bots in python!")
+    DizbotUtils.output("dizbot is a command line tool to help you seamlessly create discord bots in python!")
     click.echo("Use: dizbot run\n")
 
 @cli.command()

@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/eishan05/dizbot.svg?branch=master)](https://travis-ci.org/eishan05/dizbot) 
 [![PyPI Version](https://img.shields.io/pypi/v/dizbot.svg)](https://pypi.org/project/dizbot/)
 
-A command line tool to seemlessly build discord bots in python
+A command line tool to seamlessly build discord bots in python
 
 ## How to install
 Run `pip install dizbot`
