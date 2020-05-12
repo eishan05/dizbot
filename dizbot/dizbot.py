@@ -16,7 +16,6 @@ def cli(dizbot_config, ctx):
 
 @cli.command()
 @pass_dizbot_config
-# TODO change CLI User Interface to give user choices instead of manually controlling the control flow
 def run(dizbot_config):
   DizbotUtils.handle_persistent_config(dizbot_config)
   choice = click.prompt("What do you want to do?", type=click.Choice(dizbot_run_choices))
