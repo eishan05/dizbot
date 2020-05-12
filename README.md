@@ -4,6 +4,11 @@
 
 A command line tool to seemlessly build discord bots in python
 
+## How to install (temporary)
+1. Clone this repo
+2. Create a virtual python environment (optional but recommended)
+3. Run `pip install --editable .`
+
 ## How to use
 
 ![Demo](demo/demo.gif)
@@ -43,8 +48,3 @@ f = open('client_token.txt', 'r')
 print('Running the bot...')
 bot.run(f.read())
 ```
-
-## How to install (temporary)
-1. Clone this repo
-2. Create a virtual python environment (optional but recommended)
-3. Run `pip install --editable .`
