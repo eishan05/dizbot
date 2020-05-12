@@ -13,9 +13,9 @@ A command line tool to seemlessly build discord bots in python
 3. Add your bot's client token in the `client_token.txt` file if you didn't already add it through the CLI
 4. Run `python3 bot.py` and test out your bot!
 
-dizbot saves your bot's configurations into `dizbot_config.json` file and reads from if you run `dizbot run` again
+dizbot saves your bot's configurations into `dizbot_config.json` file and reads from it if you run `dizbot run` again
 
-dizbot also appends `dizbot_config.json` and `client_token.txt` to your `.gitignore` to make sure that you do not accidently push sensitive info onto github or other websites
+dizbot also appends `dizbot_config.json` and `client_token.txt` to your `.gitignore` to make sure that you do not accidently push sensitive info to github or other websites
 
 ## How to install (temporary)
 1. Clone this repo
