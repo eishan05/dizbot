@@ -18,7 +18,7 @@ def cli(dizbot_config, ctx):
 @pass_dizbot_config
 def run(dizbot_config):
   DizbotUtils.handle_persistent_config(dizbot_config)
-  choice = click.prompt("What do you want to do?", type=click.Choice(dizbot_run_choices))
+  choice = click.prompt("Which option do you pick?", type=click.Choice(dizbot_run_choices))
   while choice != "exit":
     if choice == "prefix":
       handle_prefix(dizbot_config)
