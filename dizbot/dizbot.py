@@ -52,7 +52,7 @@ def add_commands(dizbot_config):
 
 def remove_commands(dizbot_config):
   if len(dizbot_config.commands) == 0:
-    click.echo("No commands present in current configuration")
+    click.secho("No commands present in current configuration", fg="red")
     return
   click.echo(dizbot_config.commands_to_str())
   choices = list(dizbot_config.commands.keys())
