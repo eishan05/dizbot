@@ -63,8 +63,14 @@ class DizbotConfig:
         self.command_prefix = DEFAULT_NOT_SET
         self.client_token = DEFAULT_NOT_SET
     
+    def commands_to_str(self):
+        commands = "Commands:\n"
+        for key in self.commands:
+            commands += self.command_prefix + key + ": " + self.commands[key] + "\n"
+        return commands
+    
     def __str__(self):
-        bot_commands = "Commands: " + str(self.commands)
+        bot_commands = self.commands_to_str()
         bot_prefix = "Prefix: " + self.command_prefix
         bot_client_token = "Client token: " + self.client_token
         bot_on_member_join = "On member join message: " + self.on_member_join_message

@@ -37,17 +37,18 @@ class DizbotUtils:
                 command_name = DizbotUtils.prompt_input_from_user(COMMAND_PROMPT_NAME)
         command_response = click.prompt("What should be the bot's response to " + dizbot_config.command_prefix + command_name, type=str)
         dizbot_config.commands[command_name] = command_response
+        click.secho("Added command " + dizbot_config.command_prefix + command_name, fg="green")
     
     @staticmethod
     def handle_persistent_config(dizbot_config):
           if dizbot_config.read_config_from_file():
-            DizbotUtils.output("Already found bot config")
+            DizbotUtils.output("Already found bot config", text_color="green")
             DizbotUtils.output(str(dizbot_config))
             if (click.confirm("Do you want to overwrite the config?")):
                 dizbot_config.clear()
-                DizbotUtils.output("Overwriting previous bot config")
+                DizbotUtils.output("Overwriting previous bot config", text_color="green")
             else:
-                DizbotUtils.output("Keeping previous bot config")
+                DizbotUtils.output("Keeping previous bot config", text_color="green")
     
     @staticmethod
     def prompt_input_from_user(prompt_name):
@@ -67,5 +68,5 @@ class DizbotUtils:
         return True
     
     @staticmethod
-    def output(str):
-        click.echo("\n" + str + "\n")
+    def output(str, text_color=""):
+        click.secho("\n" + str + "\n", fg=text_color)

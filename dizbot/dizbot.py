@@ -4,6 +4,8 @@ from .dizbot_utils import DizbotUtils
 from .dizbot_generator import DizbotGenerator
 
 pass_dizbot_config = click.make_pass_decorator(DizbotConfig, ensure=True)
+dizbot_run_choices = ["prefix", "command", "event", "token", "create", "exit"]
+
 
 @click.group(invoke_without_command=True)
 @click.pass_context
@@ -14,29 +16,58 @@ def cli(dizbot_config, ctx):
 
 @cli.command()
 @pass_dizbot_config
-def create(dizbot_config):
+# TODO change CLI User Interface to give user choices instead of manually controlling the control flow
+def run(dizbot_config):
   DizbotUtils.handle_persistent_config(dizbot_config)
-  if click.confirm("Do you want to add commands to the bot?"):
+  choice = click.prompt("What do you want to do?", type=click.Choice(dizbot_run_choices))
+  while choice != "exit":
+    if choice == "prefix":
+      handle_prefix(dizbot_config)
+    elif choice == "command":
+      handle_commands(dizbot_config)
+    elif choice == "event":
+      handle_events(dizbot_config)
+    elif choice == "token":
+      handle_client_token(dizbot_config)
+    elif choice == "create":
+      save_config_and_create_bot(dizbot_config)
+    choice = click.prompt("What do you want to do?", type=click.Choice(dizbot_run_choices))
+
+def handle_prefix(dizbot_config):
+  DizbotUtils.input_command_prefix_from_user(dizbot_config)
+
+def handle_commands(dizbot_config):
+  choice = click.prompt("Do you want to add or remove commands?", type=click.Choice(["add", "remove"]))
+  if (choice == "add"):
     add_commands(dizbot_config)
-  if click.confirm("Do you want to add event handlers to the bot?"):
-    add_event_handlers(dizbot_config)
-  if click.confirm("Do you want dizbot to add your bot's client token to your bot for you?"):
-    add_client_token(dizbot_config)
-  DizbotUtils.give_client_token_information()
-  dizbot_config.save_config_to_file()
-  click.secho("Bot config created successfully!", fg="green")
-  DizbotUtils.output(str(dizbot_config))
-  generator = DizbotGenerator(dizbot_config)
-  generator.output_bot_code()
-  click.secho("Bot code generated successfully!", fg="green")
+  else:
+    remove_commands(dizbot_config)
 
 def add_commands(dizbot_config):
-  DizbotUtils.input_command_prefix_from_user(dizbot_config)
+  if dizbot_config.command_prefix == DEFAULT_NOT_SET:
+    DizbotUtils.input_command_prefix_from_user(dizbot_config)
   DizbotUtils.input_command_from_user(dizbot_config)
   while click.confirm("Want to add more commands?"):
     DizbotUtils.input_command_from_user(dizbot_config)
 
-def add_event_handlers(dizbot_config):
+def remove_commands(dizbot_config):
+  if len(dizbot_config.commands) == 0:
+    click.echo("No commands present in current configuration")
+    return
+  click.echo(dizbot_config.commands_to_str())
+  choices = list(dizbot_config.commands.keys())
+  to_delete = click.prompt("Which command would you like to delete", type=click.Choice(choices))
+  dizbot_config.commands.pop(to_delete)
+  choices.remove(to_delete)
+  click.secho("Removed command " + to_delete, fg="green")
+  while len(choices) > 0 and click.confirm("Do you want to remove more?"):
+    to_delete = click.prompt("Which command would you like to delete", type=click.Choice(choices))
+    dizbot_config.commands.pop(to_delete)
+    click.secho("Removed command " + to_delete, fg="green")
+  if len(choices) == 0:
+    click.echo("Note: all commands have been removed")
+
+def handle_events(dizbot_config):
   if click.confirm("Do you want to send a Direct Message to a member when he joins your server?"):
     msg = ""
     if dizbot_config.on_member_join_message != DEFAULT_NOT_SET:
@@ -48,8 +79,20 @@ def add_event_handlers(dizbot_config):
     else:
       msg = click.prompt("What message would you like the bot to send", type=str)
     dizbot_config.on_member_join_message = msg
+  else:
+    dizbot_config.on_member_join_message = DEFAULT_NOT_SET
 
-def add_client_token(dizbot_config):
+def handle_client_token(dizbot_config):
   token = click.prompt("Dicord client token", type=str)
   dizbot_config.client_token = token
   click.secho("Added discord token", fg="green")
+
+def save_config_and_create_bot(dizbot_config):
+  DizbotUtils.give_client_token_information()
+  dizbot_config.save_config_to_file()
+  click.secho("Bot config created successfully!", fg="green")
+  DizbotUtils.output(str(dizbot_config))
+  generator = DizbotGenerator(dizbot_config)
+  generator.output_bot_code()
+  click.secho("Bot code generated successfully!", fg="green")
+
