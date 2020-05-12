@@ -46,6 +46,7 @@ def handle_commands(dizbot_config):
 
 def add_commands(dizbot_config):
   if dizbot_config.command_prefix == DEFAULT_NOT_SET:
+    click.echo("Command prefix needs to be set before you can start adding commands")
     DizbotUtils.input_command_prefix_from_user(dizbot_config)
   DizbotUtils.input_command_from_user(dizbot_config)
   while click.confirm("Want to add more commands?"):
