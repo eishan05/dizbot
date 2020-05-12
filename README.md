@@ -5,7 +5,7 @@
 
 A command line tool to seemlessly build discord bots in python
 
-## How to install (temporary)
+## How to install
 Run `pip install dizbot`
 
 Note: Requires python version 3 or more
