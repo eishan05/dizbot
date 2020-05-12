@@ -41,14 +41,16 @@ class DizbotUtils:
     
     @staticmethod
     def handle_persistent_config(dizbot_config):
-          if dizbot_config.read_config_from_file():
-            DizbotUtils.output("Already found bot config", text_color="green")
-            DizbotUtils.output(str(dizbot_config))
-            if (click.confirm("Do you want to overwrite the config?")):
-                dizbot_config.clear()
-                DizbotUtils.output("Overwriting previous bot config", text_color="green")
-            else:
-                DizbotUtils.output("Keeping previous bot config", text_color="green")
+        if dizbot_config.read_config_from_file():
+          DizbotUtils.output("Already found bot config", text_color="green")
+          DizbotUtils.output(str(dizbot_config))
+          if (click.confirm("Do you want to overwrite the config?")):
+              dizbot_config.clear()
+              DizbotUtils.output("Overwriting previous bot config", text_color="green")
+          else:
+              DizbotUtils.output("Keeping previous bot config", text_color="green")
+        else:
+            DizbotUtils.output("Creating a new bot")
     
     @staticmethod
     def prompt_input_from_user(prompt_name):

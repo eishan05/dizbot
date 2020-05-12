@@ -74,4 +74,4 @@ class DizbotConfig:
         bot_prefix = "Prefix: " + self.command_prefix
         bot_client_token = "Client token: " + self.client_token
         bot_on_member_join = "On member join message: " + self.on_member_join_message
-        return bot_commands + "\n" + bot_prefix + "\n" + bot_client_token + "\n" + bot_on_member_join
+        return bot_commands + bot_prefix + "\n" + bot_client_token + "\n" + bot_on_member_join
