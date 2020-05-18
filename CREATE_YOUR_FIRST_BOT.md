@@ -1,5 +1,10 @@
 # Create your first bot using dizbot
 
+## Table
+1. [Machine setup (install Python 3 and pip)](#machine-setup)
+2. [Discord setup (create a bot account and add it to servers)](#discord-setup)
+3. [dizbot usage (generate bot code using dizbot)](#dizbot-usage)
+
 ## Machine setup
 
 You can skip this section if you already have Python 3 and pip installed on your machine
@@ -32,3 +37,15 @@ You can skip this section if you already have Python 3 and pip installed on your
 6. Add the bot to a server you admin by following the instructions in this page
 ![Add bot page](demo/add_bot_page.png)
 7. Congrats you have setup your new bot!
+
+
+## dizbot usage
+
+1. Install dizbot by running `pip install dizbot` in command prompt or terminal
+2. Navigate to the directory you want your bot files to be in
+2. Command `dizbot run` will walk you through adding functionality to your bot and generate bot code
+3. You can add the client token you saved in step 4 of [Discord setup](#discord-setup) through the command line, or add it in the `client_token.txt` file that dizbot creates
+4. Run command `python3 bot.py` to start the bot
+5. Test out your bot by running a command in the discord server your bot is in!
+
+![demo gif](demo/demo.gif)
