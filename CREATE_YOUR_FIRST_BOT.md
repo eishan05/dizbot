@@ -1,4 +1,4 @@
-# Create your first bot using dizbot
+# Create your first discord bot using dizbot
 
 ## Table
 1. [Machine setup (install Python 3 and pip)](#machine-setup)
@@ -24,6 +24,8 @@ You can skip this section if you already have Python 3 and pip installed on your
 4. Confirm installation by running `pip -v`
 
 ## Discord setup
+
+If you already have a bot and its client token created on discord's developer portal, you can skip this section
 
 1. [Make a discord account](https://discord.onl/2019/01/24/how-to-create-a-discord-account/) if you haven't already
 2. Go to [developer portal](https://discord.com/developers/applications) and click on the `New Application` button on the top right

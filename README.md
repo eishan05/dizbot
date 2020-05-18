@@ -12,6 +12,8 @@ Note: Requires python version 3 or more
 
 ## How to use
 
+Go to [Create your first discord bot using dizbot](CREATE_YOUR_FIRST_BOT.md) for a complete from-scratch tutorial
+
 ![Demo](demo/demo.gif)
 
 1. Go into the directory you want to have the bot code in
